@@ -74,7 +74,7 @@ var inputValor = document.getElementById("inputValor")
         document.getElementById("valores").innerHTML=hola;
         console.log(hola)
         valor=document.getElementById("inputValor").value
-        document.getElementById("plata").innerHTML=`Usted pagó en el día ${fecha} un total de $${valor/historicoo} Dólares`;
+        document.getElementById("plata").innerHTML=`Usted pagó en el día ${fecha} un total de $${(valor/historicoo).toFixed(2)} Dólares`;
         
         
     })
