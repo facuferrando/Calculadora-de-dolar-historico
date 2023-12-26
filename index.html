@@ -43,6 +43,9 @@
         hola=(Hist(res,fecha))
         
     })
+
+
+    
     var input = document.getElementById("inputFecha")
     input.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -53,15 +56,7 @@
   
 });
 
-var inputValor = document.getElementById("inputValor")
-    inputValor.addEventListener("keypress", function(event) {
-  if (event.key === "Enter") {
-    event.preventDefault();
-    document.getElementById("myValor").click();
-    
-  }
-  
-});
+
 
     
     function returnValor(){
