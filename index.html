@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="./img/cerebro-humano-sobre-fondo-blanco-diseno-dibujos-animados_530689-1560.avif">
+
+    
+   
+   
+    
+</head>
+
+<body >
+    <h1> Calculadora de dólar histórico </h1>
+    <div>
+    <p>Escriba la fecha en el formato "AAA-MM-DD"</p>
+    <input id="inputFecha" type="text" placeholder="AAA-MM-DD"/>
+        <br>
+        <br>
+    <p>Escriba el valor en pesos que pagó en dicha Fecha</p>
+    <input id="inputValor" type="text" placeholder="$$$$$"/>
+    
+    <br>
+    <br>
+
+    <p id="valores"></p>
+    <p id="plata"></p>
+    <br>
+    
+    <button id="myValor" onclick="returnValor()">Calcular</button> 
+    </div>
+    
+</body>
+<script>
+    let hola=''
+    let valor=10000;
+    let fecha='2023-12-26';
+    fetch('https://api.bluelytics.com.ar/v2/evolution.json')
+    .then(data=>data.json())
+    .then(res=>{
+        hola=(Hist(res,fecha))
+        
+    })
+    var input = document.getElementById("inputFecha")
+    input.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("myValor").click();
+    
+  }
+  
+});
+
+var inputValor = document.getElementById("inputValor")
+    inputValor.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    document.getElementById("myValor").click();
+    
+  }
+  
+});
+
+    
+    function returnValor(){
+       
+        fetch('https://api.bluelytics.com.ar/v2/evolution.json')
+            .then(data=>data.json())
+            .then(res=>{
+        fecha=document.getElementById("inputFecha").value
+        hola=(Hist(res,fecha))
+        document.getElementById("valores").innerHTML=hola;
+        console.log(hola)
+        valor=document.getElementById("inputValor").value
+        document.getElementById("plata").innerHTML=`Usted pagó en el día ${fecha} un total de $${valor/historicoo} Dólares`;
+        
+        
+    })
+    }
+    
+    function Hist(jota,fechas){ 
+    for(let i=0;i<jota.length;i++){
+        if(jota[i].date==fechas && jota[i].source=="Blue"){historicoo=jota[i].value_sell}
+    }
+    return ('En la fecha:'+fechas+' el dólar Blue valía:'+historicoo)
+}
+
+
+
+
+</script>
+<br>
+    By <a href="https://github.com/facuferrando" target="_blank">Facu</a>
+
+</html>
