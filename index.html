@@ -1,25 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dólar historico a pesos hoy</title>
     <link rel="icon" href="./img/cerebro-humano-sobre-fondo-blanco-diseno-dibujos-animados_530689-1560.avif">
     <style>
         body {
             background-color: #f2f2f2;
             font-family: Arial, sans-serif;
         }
+
         h1 {
             color: #333;
             text-align: center;
         }
-        input[type="date"], input[type="number"] {
+
+        input[type="date"],
+        input[type="number"] {
             padding: 10px;
             border-radius: 5px;
             border: none;
             margin-bottom: 10px;
         }
+
         button {
             background-color: #4CAF50;
             color: white;
@@ -27,20 +32,25 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-           
+
         }
+
         button:hover {
             background-color: #3e8e41;
         }
+
         #valores {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-        #plata, #plataDeHoy {
+
+        #plata,
+        #plataDeHoy {
             font-size: 16px;
             margin-top: 20px;
         }
+
         a {
             color: #4CAF50;
         }
@@ -51,32 +61,32 @@
     <h1>Calculadora de dólar histórico</h1>
     <div>
         <p>Escriba la fecha en el formato "AAA-MM-DD"</p>
-        <input id="inputFecha" type="date" placeholder="AAA-MM-DD"/>
+        <input id="inputFecha" type="date" placeholder="AAA-MM-DD" />
         <br>
         <br>
         <p>Escriba el valor en pesos que pagó en dicha Fecha</p>
-        <input id="inputValor" type="number" placeholder="$$$$$"/>
+        <input id="inputValor" type="number" placeholder="$$$$$" />
         <br>
         <br>
         <p id="valores"></p>
         <p id="plata"></p>
         <p id="plataDeHoy"></p>
         <br>
-        <button id="myValor" onclick="returnValor()">Calcular</button> 
+        <button id="myValor" onclick="returnValor()">Calcular</button>
     </div>
 </body>
 
 <script>
-    let hola=''
-    let valor=10000;
-    let fecha='2023-12-26';
+    let api = ''
+    let valor = 10000;
+    let fecha = '2023-12-26';
     fetch('https://api.bluelytics.com.ar/v2/evolution.json')
-    .then(data=>data.json())
-    .then(res=>{
-        hola=(Hist(res,fecha))
-    })
+        .then(data => data.json())
+        .then(res => {
+            api = (Hist(res, fecha))
+        })
     var input = document.getElementById("inputFecha")
-    input.addEventListener("keypress", function(event) {
+    input.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("myValor").click();
@@ -84,39 +94,40 @@
     });
 
     var inputValor = document.getElementById("inputValor")
-    inputValor.addEventListener("keypress", function(event) {
+    inputValor.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             event.preventDefault();
             document.getElementById("myValor").click();
         }
     });
 
-    function returnValor(){
+    function returnValor() {
         fetch('https://api.bluelytics.com.ar/v2/evolution.json')
-            .then(data=>data.json())
-            .then(res=>{
-                fecha=document.getElementById("inputFecha").value
-                hola=(Hist(res,fecha))
-                document.getElementById("valores").innerHTML=hola;
-                console.log(hola)
-                valor=document.getElementById("inputValor").value
-                document.getElementById("plata").innerHTML=`Usted pagó en el día ${fecha} un total de $${(valor/historicoo).toFixed(2)} Dólares`;
-                document.getElementById("plataDeHoy").innerHTML=`A plata de hoy serían $${((valor/historicoo)*ValorDeHoy(res)).toFixed(2)} Pesos`
+            .then(data => data.json())
+            .then(res => {
+                fecha = document.getElementById("inputFecha").value
+                api = (Hist(res, fecha))
+                document.getElementById("valores").innerHTML = api;
+                console.log(api)
+                valor = document.getElementById("inputValor").value
+                document.getElementById("plata").innerHTML = `Usted pagó en el día ${fecha} un total de $${(valor / historicoo).toFixed(2)} Dólares`;
+                document.getElementById("plataDeHoy").innerHTML = `A plata de hoy serían $${((valor / historicoo) * ValorDeHoy(res)).toFixed(2)} Pesos`
             })
     }
 
-    function ValorDeHoy (res){
+    function ValorDeHoy(res) {
         return (res[1].value_sell)
     }
 
-    function Hist(jota,fechas){ 
-        for(let i=0;i<jota.length;i++){
-            if(jota[i].date==fechas && jota[i].source=="Blue"){historicoo=jota[i].value_sell}
+    function Hist(jota, fechas) {
+        for (let i = 0; i < jota.length; i++) {
+            if (jota[i].date == fechas && jota[i].source == "Blue") { historicoo = jota[i].value_sell }
         }
-        return ('En la fecha: '+fechas+' el dólar Blue valía:'+historicoo)
+        return ('En la fecha: ' + fechas + ' el dólar Blue valía:' + historicoo)
     }
 </script>
 
 <br>
 By <a href="https://github.com/facuferrando" target="_blank">Facu</a>
+
 </html>
