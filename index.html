@@ -70,6 +70,7 @@
         <br>
         <p id="valores"></p>
         <p id="plata"></p>
+        <p id="dolarBlueHoy"></p>
         <p id="plataDeHoy"></p>
         <br>
         <button id="myValor" onclick="returnValor()">Calcular</button>
@@ -111,7 +112,9 @@
                 console.log(api)
                 valor = document.getElementById("inputValor").value
                 document.getElementById("plata").innerHTML = `Usted pagó en el día ${fecha} un total de $${(valor / historicoo).toFixed(2)} Dólares`;
-                document.getElementById("plataDeHoy").innerHTML = `A plata de hoy serían $${((valor / historicoo) * ValorDeHoy(res)).toFixed(2)} Pesos`
+                document.getElementById("dolarBlueHoy").innerHTML = ` El dólar Blue hoy vale :$ ${(ValorDeHoy(res)).toFixed(2)}`
+                document.getElementById("plataDeHoy").innerHTML = `A plata de hoy serían $${((valor / historicoo) * ValorDeHoy(res)).toFixed(2)} Pesos`;
+
             })
     }
 
